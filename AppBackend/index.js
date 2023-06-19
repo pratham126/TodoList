@@ -1,3 +1,5 @@
+require('dotenv').config();
+import path from 'path';
 const express = require('express');
 const cors = require("cors");
 const bodyParser = require('body-parser');
@@ -6,7 +8,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
-mongoose.connect('mongodb://localhost:27017/smart_tododb');
+
+mongoose.connect(`${process.env.Database}`);
 const ItemSchema = new mongoose.Schema({
   name: {
      type: String,
@@ -17,8 +20,10 @@ const ItemSchema = new mongoose.Schema({
 });
 const Item = mongoose.model('Item', ItemSchema);
 
-app.listen('4000', function(){
-  console.log('Express is running on port 4000');
+const URL = process.env.PORT || 4000;
+
+app.listen(URL, function(){
+  console.log('Express is running on port', URL);
 });
 
 app.get("/",function(req,res){
@@ -67,3 +72,9 @@ app.post('/update/:id', function(req, res){
   }
   transact();
 });
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '/smart_todo/build')));
+app.get("*", function(req, res){
+  res.sendFile(path.join(__dirname, '/smart_todo/build/index.html'))
+})

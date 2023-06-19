@@ -1,0 +1,21 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "My smart_todo list",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd AppBackend && npm install && cd ../smart_todo && npm install && npm run build",
+    "start": "node AppBackend/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pratham126/TodoList.git"
+  },
+  "author": "Pratham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pratham126/TodoList/issues"
+  },
+  "homepage": "https://github.com/pratham126/TodoList#readme"
+}
