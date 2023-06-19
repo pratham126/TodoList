@@ -1,5 +1,5 @@
 require('dotenv').config();
-import path from 'path';
+const path = require('path');
 const express = require('express');
 const cors = require("cors");
 const bodyParser = require('body-parser');
@@ -73,8 +73,8 @@ app.post('/update/:id', function(req, res){
   transact();
 });
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/smart_todo/build')));
+const dirname = path.resolve();
+app.use(express.static(path.join(dirname, '/smart_todo/build')));
 app.get("*", function(req, res){
-  res.sendFile(path.join(__dirname, '/smart_todo/build/index.html'))
+  res.sendFile(path.join(dirname, '/smart_todo/build/index.html'))
 })
