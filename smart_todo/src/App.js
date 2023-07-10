@@ -1,26 +1,15 @@
-import React, { useState, useEffect } from "react";
-import ListItem from "./components/ListItem.jsx";
-import "./App.css";
-import AddItem from "./components/AddItem.jsx";
+import React from 'react';
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomeScreen from './components/HomeScreen.js';
 function App() {
-  const [list, setList] = useState([]);
-  useEffect(() => {
-      fetch("http://localhost:4000/items")
-        .then((res) => res.json())
-        .then((data) => setList(data.items))
-  }, [list]);
-
   return (
-    <div className="box">
-      <h1 id='heading'>My ToDo List</h1>
-        <AddItem />
-        <div>
-          <ol style={{padding: 20}}>
-            {list.map((listItem) => <ListItem check={listItem.isChecked} key={listItem._id} item={listItem.name} id={listItem._id} date={listItem.date} />)}
-          </ol>
-        </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomeScreen />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;

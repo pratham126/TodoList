@@ -1,80 +1,38 @@
-require('dotenv').config();
-const path = require('path');
-const express = require('express');
-const cors = require("cors");
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+import path from 'path';
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import ItemRoute from './ItemRoute.js';
+import cors from 'cors';
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+};
+
 const app = express();
-app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors(corsOptions));
 
-mongoose.connect(`${process.env.Database}`);
-const ItemSchema = new mongoose.Schema({
-  name: {
-     type: String,
-     required: [true, 'name field is required']
-  },
-  isChecked: Boolean,
-  date: Date
-});
-const Item = mongoose.model('Item', ItemSchema);
+import dotenv from 'dotenv';
+dotenv.config();
 
-const URL = process.env.PORT || 4000;
+mongoose
+  .connect(`${process.env.MONGODB_URL}`)
+  .then(() => console.log('Connected to cloud db'))
+  .catch((err) => console.log('error is', err));
 
-app.listen(URL, function(){
-  console.log('Express is running on port', URL);
-});
+app.use('/', ItemRoute);
 
-app.get("/",function(req,res){
-  res.send("<h1>This is the root directory!</H1>");
-  async function transact(){
-    const allItems = await Item.find();
-    res.send({message: allItems});
-  }
-  transact();
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, function () {
+  console.log(`Serve at http://localhost:${PORT}`);
 });
 
-app.get('/items', function(req, res){
-  async function transact(){
-    const allItems = await Item.find();
-    res.json({items: allItems});
-  }
-  transact();
-});
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, '/smart_todo/build')));
 
-app.post('/items', function(req, res){  
-  async function transact(){
-    const {text, date} = req.body;
-    const newItem = new Item({
-      name: text,
-      isChecked: false,
-      date: date
-    });
-    newItem.save().then(() => console.log('New Item added: ', newItem));
-  }
-  transact();
-});
-
-app.post('/delete/:id', function(req, res){  
-  const itemId = req.params.id;
-  async function transact(){
-    await Item.deleteOne({_id: itemId});
-  }
-  transact();
-});
-
-app.post('/update/:id', function(req, res){  
-  const itemId = req.params.id;
-  async function transact(){
-    const foundCheck = await Item.findOne({_id: itemId});
-    await Item.updateOne({_id: itemId},{isChecked: !foundCheck.isChecked});
-  }
-  transact();
-});
-
-const dirname = path.resolve();
-app.use(express.static(path.join(dirname, '/smart_todo/build')));
-app.get("*", function(req, res){
-  res.sendFile(path.join(dirname, '/smart_todo/build/index.html'))
-})
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/smart_todo/build/index.html'))
+);

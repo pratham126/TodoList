@@ -1,5 +1,6 @@
 {
   "name": "appbackend",
+  "type": "module",
   "version": "1.0.0",
   "description": "Backend of smart_todo app",
   "main": "index.js",
