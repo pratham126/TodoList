@@ -5,7 +5,7 @@ import ItemRoute from './ItemRoute.js';
 import cors from 'cors';
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://todolist-frontend-qz1n.onrender.com',
 };
 
 const app = express();
