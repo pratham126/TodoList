@@ -4,15 +4,19 @@ import ListItem from './ListItem';
 import axios from 'axios';
 const HomeScreen = () => {
   const [list, setList] = useState([]);
-  useEffect(
-    () => async () => {
-      const { data } = await axios.get('https://todolist-backend-560u.onrender.com/items');
+  useEffect(() => {
+    const addData = async () => {
+      const { data } = await axios.get(
+        'https://todolist-backend-560u.onrender.com/items'
+      );
       setList(data.items.sort((a, b) => new Date(b.date) - new Date(a.date)));
-    },
-    []
-  );
+    };
+    addData();
+  }, []);
   const fetchData = async () => {
-    const { data } = await axios.get('https://todolist-backend-560u.onrender.com/items');
+    const { data } = await axios.get(
+      'https://todolist-backend-560u.onrender.com/items'
+    );
     setList(data.items.sort((a, b) => new Date(b.date) - new Date(a.date)));
   };
   return (
@@ -20,14 +24,14 @@ const HomeScreen = () => {
       <h1 id="heading" className="text-center my-3">
         My ToDo List
       </h1>
-      <AddItem fun={fetchData} />
+      <AddItem fetch={fetchData} />
       <hr className="w-50 mx-auto" />
       <div>
         <ol className="list-group list-group-numbered list-group-flush">
           {list.length ? (
             list.map((listItem) => (
               <ListItem
-                fun={fetchData}
+                fetch={fetchData}
                 check={listItem.isChecked}
                 key={listItem._id}
                 item={listItem.name}
@@ -36,7 +40,7 @@ const HomeScreen = () => {
               />
             ))
           ) : (
-            <p className='text-secondary'>No items in list</p>
+            <p className="text-secondary">No items in list</p>
           )}
         </ol>
       </div>

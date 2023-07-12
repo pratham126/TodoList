@@ -5,8 +5,8 @@ import axios from 'axios';
 const ListItem = (props) => {
   const [check, setCheck] = useState(props.check);
 
-  const DeleteItem = async () => {
-    async function f() {
+  const DeleteItem = () => {
+    async function fetchdata() {
       await axios.post(
         'https://todolist-backend-560u.onrender.com/delete/' + props.id,
         {
@@ -14,9 +14,8 @@ const ListItem = (props) => {
         }
       );
     }
-    f();
-    props.fun();
-    props.fun();
+    fetchdata();
+    props.fetch();
   };
 
   function CheckItem() {
@@ -25,8 +24,7 @@ const ListItem = (props) => {
       { id: props.id }
     );
     setCheck(!check);
-    props.fun();
-    props.fun();
+    props.fetch();
   }
 
   function GiveDate() {

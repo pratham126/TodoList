@@ -11,8 +11,7 @@ const AddItem = (props) => {
     event.preventDefault();
     async function f() {
       axios.post('https://todolist-backend-560u.onrender.com/items', input);
-      props.fun();
-      props.fun();
+      props.fetch();
     }
     f();
     setInput({ text: '', date: '' });
