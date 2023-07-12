@@ -4,8 +4,10 @@
   "description": "My smart_todo list",
   "main": "index.js",
   "scripts": {
-    "build": "cd AppBackend && npm install && cd ../smart_todo && npm install && npm run build",
-    "start": "node AppBackend/index.js",
+    "install-server": "cd AppBackend && npm install",
+    "start-server": "node AppBackend/index.js",
+    "build": "cd smart_todo && npm install && npm run build",
+    "start-client": "cd smart_todo && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

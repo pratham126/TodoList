@@ -1,4 +1,3 @@
-import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -29,10 +28,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, function () {
   console.log(`Serve at http://localhost:${PORT}`);
 });
-
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/smart_todo/build')));
-
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/smart_todo/build/index.html'))
-);
