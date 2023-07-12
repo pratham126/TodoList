@@ -1,33 +1,20 @@
 import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-// import { globalState } from './State';
 import axios from 'axios';
 
 const AddItem = (props) => {
-  // const { dispatch: ctxdispatch } = useContext(globalState);
-  // const list
   const [input, setInput] = useState({
     text: '',
     date: '',
   });
   const HandleClick = (event) => {
     event.preventDefault();
-    // const { data } = fetch(url, {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ text: input.text, date: input.date }),
-    // }).then(() => console.log('fetch executed'));
     async function f() {
-      axios.post('/items', input);
+      axios.post('https://todolist-backend-560u.onrender.com/items', input);
       props.fun();
       props.fun();
-      // console.log('2nd addItem in AddItem');
-      // console.log(props.fun());
-      // console.log(props.fun);
     }
     f();
-    // ctxdispatch({ type: 'ADD_ITEM', payload: data });
     setInput({ text: '', date: '' });
   };
 
@@ -48,7 +35,7 @@ const AddItem = (props) => {
           value={input.text}
           placeholder="Add new task"
           onChange={HandleChange}
-        />  
+        />
         <input
           type="date"
           name="date"
@@ -56,7 +43,7 @@ const AddItem = (props) => {
           value={input.date}
           title="Set task deadline"
           onChange={HandleChange}
-          />
+        />
         <button
           type="submit"
           className="btn btn-outline-primary rounded-end-circle"

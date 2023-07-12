@@ -7,9 +7,12 @@ const ListItem = (props) => {
 
   const DeleteItem = async () => {
     async function f() {
-      await axios.post('/delete/' + props.id, {
-        id: props.id,
-      });
+      await axios.post(
+        'https://todolist-backend-560u.onrender.com/delete/' + props.id,
+        {
+          id: props.id,
+        }
+      );
     }
     f();
     props.fun();
@@ -17,7 +20,10 @@ const ListItem = (props) => {
   };
 
   function CheckItem() {
-    axios.post('/update/' + props.id, { id: props.id });
+    axios.post(
+      'https://todolist-backend-560u.onrender.com/update/' + props.id,
+      { id: props.id }
+    );
     setCheck(!check);
     props.fun();
     props.fun();
