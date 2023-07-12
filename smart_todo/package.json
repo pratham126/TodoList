@@ -1,6 +1,6 @@
 {
   "name": "smart_todo",
-  "proxy": "http://localhost:4000",
+  "proxy": "https://todolist-backend-560u.onrender.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
