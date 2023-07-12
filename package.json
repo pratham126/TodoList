@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install-server": "cd AppBackend && npm install",
-    "start-server": "node AppBackend/index.js",
-    "build": "cd smart_todo && npm install && npm run build",
+    "start-server": "node AppBackend/Server.js",
+    "build-client": "cd smart_todo && npm install && npm run build",
     "start-client": "cd smart_todo && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
