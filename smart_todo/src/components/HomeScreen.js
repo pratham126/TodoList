@@ -32,15 +32,24 @@ const HomeScreen = () => {
       addData();
     } catch (err) {
       dispatch({ type: 'FAIL' });
-      console.log(err);
+      console.log('error in addData block', err);
     }
-    console.log('fetched the data 2');
   }, []);
-  const fetchData = async () => {
-    const { data } = await axios.get(
-      'https://todolist-backend-560u.onrender.com/items'
-    );
-    setList(data.items.sort((a, b) => new Date(b.date) - new Date(a.date)));
+  const fetchData = () => {
+    try {
+      dispatch({ type: 'FETCH' });
+      const addData = async () => {
+        const { data } = await axios.get(
+          'https://todolist-backend-560u.onrender.com/items'
+        );
+        setList(data.items.sort((a, b) => new Date(b.date) - new Date(a.date)));
+        dispatch({ type: 'SUCCESS' });
+      };
+      addData();
+    } catch (err) {
+      dispatch({ type: 'FAIL' });
+      console.log('error in fetchData block', err);
+    }
   };
   return (
     <div className="box container-sm">
@@ -50,8 +59,8 @@ const HomeScreen = () => {
       <AddItem fetch={fetchData} />
       <hr className="w-50 mx-auto" />
       {loading ? (
-        <div className='container text-center'>
-        <div className="spinner-border text-secondary" role="status" />
+        <div className="container text-center">
+          <div className="spinner-border text-secondary" role="status" />
         </div>
       ) : (
         <div>
