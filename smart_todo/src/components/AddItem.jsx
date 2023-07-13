@@ -45,7 +45,7 @@ const AddItem = (props) => {
         />
         <button
           type="submit"
-          className="btn btn-outline-primary rounded-end-circle"
+          className="btn btn-outline-secondary rounded-end-circle"
           title="Click to add new task"
           onClick={HandleClick}
         >
